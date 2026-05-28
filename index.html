@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NBA Universe</title>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, Helvetica, sans-serif;
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:#0f0f0f;
+      color:white;
+    }
+
+    header{
+      width:100%;
+      padding:20px 60px;
+
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+
+      background:#000;
+      position:sticky;
+      top:0;
+      z-index:1000;
+    }
+
+    .logo{
+      color:orange;
+      font-size:32px;
+      font-weight:bold;
+    }
+
+    nav a{
+      color:white;
+      text-decoration:none;
+      margin-left:25px;
+      font-size:18px;
+      transition:0.3s;
+    }
+
+    nav a:hover{
+      color:orange;
+    }
+
+    .hero{
+      height:100vh;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+
+      background:
+      linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+      url("https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=1400&auto=format&fit=crop");
+
+      background-size:cover;
+      background-position:center;
+    }
+
+    .hero-content h1{
+      font-size:80px;
+      margin-bottom:20px;
+    }
+
+    .hero-content p{
+      font-size:22px;
+      color:#ddd;
+      margin-bottom:30px;
+    }
+
+    .btn{
+      padding:15px 35px;
+      border:none;
+      border-radius:10px;
+
+      background:orange;
+      color:black;
+
+      font-size:18px;
+      font-weight:bold;
+
+      cursor:pointer;
+      transition:0.3s;
+
+      text-decoration:none;
+    }
+
+    .btn:hover{
+      transform:scale(1.05);
+    }
+
+    section{
+      padding:80px 60px;
+    }
+
+    .section-title{
+      text-align:center;
+      font-size:50px;
+      margin-bottom:50px;
+      color:orange;
+    }
+
+    .teams-container{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:30px;
+    }
+
+    .team-card{
+      background:#1c1c1c;
+      padding:30px;
+      border-radius:20px;
+
+      text-align:center;
+
+      transition:0.3s;
+      cursor:pointer;
+    }
+
+    .team-card:hover{
+      transform:translateY(-10px);
+      background:orange;
+      color:black;
+    }
+
+    .team-card img{
+      width:120px;
+      margin-bottom:20px;
+    }
+
+    .team-card h2{
+      margin-bottom:10px;
+    }
+
+    .roster-section{
+      display:none;
+    }
+
+    .players{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:25px;
+    }
+
+    .player-card{
+      background:#1c1c1c;
+      padding:25px;
+      border-radius:15px;
+      text-align:center;
+
+      transition:0.3s;
+    }
+
+    .player-card:hover{
+      transform:scale(1.05);
+      background:orange;
+      color:black;
+    }
+
+    .player-card h3{
+      margin-bottom:10px;
+      font-size:24px;
+    }
+
+    .back-btn{
+      margin-bottom:40px;
+    }
+
+    footer{
+      text-align:center;
+      padding:30px;
+      background:black;
+      color:#aaa;
+    }
+
+    @media(max-width:768px){
+
+      header{
+        padding:20px;
+      }
+
+      .hero-content h1{
+        font-size:50px;
+      }
+
+      .section-title{
+        font-size:38px;
+      }
+
+      nav a{
+        margin-left:12px;
+        font-size:16px;
+      }
+
+    }
+
+  </style>
+</head>
+<body>
+
+  <header>
+
+    <div class="logo">NBA UNIVERSE</div>
+
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#teams">Teams</a>
+      <a href="#about">About</a>
+    </nav>
+
+  </header>
+
+  <!-- HERO -->
+
+  <section class="hero" id="home">
+
+    <div class="hero-content">
+
+      <h1>WELCOME TO THE NBA</h1>
+
+      <p>
+        Explore NBA teams, players, and rosters
+        in this basketball themed website.
+      </p>
+
+      <a href="#teams" class="btn">Explore Teams</a>
+
+    </div>
+
+  </section>
+
+  <!-- TEAMS -->
+
+  <section id="teams">
+
+    <h1 class="section-title">NBA TEAMS</h1>
+
+    <div class="teams-container">
+
+      <div class="team-card" onclick="showRoster('lakers')">
+        <img src="https://loodibee.com/wp-content/uploads/nba-los-angeles-lakers-logo.png">
+        <h2>Lakers</h2>
+        <p>Los Angeles Lakers</p>
+      </div>
+
+      <div class="team-card" onclick="showRoster('warriors')">
+        <img src="https://loodibee.com/wp-content/uploads/nba-golden-state-warriors-logo.png">
+        <h2>Warriors</h2>
+        <p>Golden State Warriors</p>
+      </div>
+
+      <div class="team-card" onclick="showRoster('bulls')">
+        <img src="https://upload.wikimedia.org/wikipedia/en/6/67/Chicago_Bulls_logo.svg">
+        <h2>Bulls</h2>
+        <p>Chicago Bulls</p>
+      </div>
+
+      <div class="team-card" onclick="showRoster('celtics')">
+       <img src="https://upload.wikimedia.org/wikipedia/en/8/8f/Boston_Celtics.svg">
+        <h2>Celtics</h2>
+        <p>Boston Celtics</p>
+      </div>
+
+    <div class="team-card" onclick="showRoster('heat')">
+        <img src="https://upload.wikimedia.org/wikipedia/en/f/fb/Miami_Heat_logo.svg">
+        <h2>Heat</h2>
+        <p>Miami Heat</p>
+      </div>
+
+    <div class="team-card" onclick="showRoster('bucks')">
+        <img src="https://upload.wikimedia.org/wikipedia/en/4/4a/Milwaukee_Bucks_logo.svg">
+        <h2>Bucks</h2>
+        <p>Milwaukee Bucks</p>
+       </div>
+
+    <div class="team-card" onclick="showRoster('knicks')">
+        <img src="https://upload.wikimedia.org/wikipedia/en/2/25/New_York_Knicks_logo.svg">
+        <h2>Knicks</h2>
+        <p>New York Knicks</p>
+      </div>
+
+    <div class="team-card" onclick="showRoster('nuggets')">
+        <img src="https://upload.wikimedia.org/wikipedia/en/7/76/Denver_Nuggets.svg">
+        <h2>Nuggets</h2>
+        <p>Denver Nuggets</p>
+      </div>
+
+    <div class="team-card" onclick="showRoster('suns')">
+        <img src="https://upload.wikimedia.org/wikipedia/en/d/dc/Phoenix_Suns_logo.svg">
+        <h2>Suns</h2>
+        <p>Phoenix Suns</p>
+      </div>
+
+    <div class="team-card" onclick="showRoster('mavericks')">
+        <img src="https://upload.wikimedia.org/wikipedia/en/9/97/Dallas_Mavericks_logo.svg">
+        <h2>Mavericks</h2>
+        <p>Dallas Mavericks</p>
+      </div>
+
+    <div class="team-card" onclick="showRoster('spurs')">
+        <img src="https://upload.wikimedia.org/wikipedia/en/a/a2/San_Antonio_Spurs.svg">
+        <h2>Spurs</h2>
+        <p>San Antonio Spurs</p>
+      </div>
+
+    <div class="team-card" onclick="showRoster('thunder')">
+        <img src="https://upload.wikimedia.org/wikipedia/en/5/5d/Oklahoma_City_Thunder.svg">
+        <h2>Thunder</h2>
+        <p>Oklahoma City Thunder</p>
+      </div>
+
+    </div>
+
+  </section>
+
+    <!-- LAKERS ROSTER -->
+
+    <section class="roster-section" id="lakers">
+
+    <button class="btn back-btn" onclick="hideRosters()">
+        Back To Teams
+    </button>
+
+    <h1 class="section-title">LAKERS ROSTER</h1>
+
+    <div class="players">
+
+        <div class="player-card">
+        <h3>LeBron James</h3>
+        <p>SF / PF</p>
+        </div>
+
+        <div class="player-card">
+        <h3>Luka Doncic</h3>
+        <p>PG</p>
+        </div>
+
+        <div class="player-card">
+        <h3>Austin Reaves</h3>
+        <p>SG</p>
+        </div>
+
+    </div>
+
+    </section>
+
+    <!-- WARRIORS ROSTER -->
+
+    <section class="roster-section" id="warriors">
+
+    <button class="btn back-btn" onclick="hideRosters()">
+        Back To Teams
+    </button>
+
+    <h1 class="section-title">WARRIORS ROSTER</h1>
+
+    <div class="players">
+
+        <div class="player-card">
+        <h3>Stephen Curry</h3>
+        <p>PG</p>
+        </div>
+
+        <div class="player-card">
+        <h3>Jimmy Butler</h3>
+        <p>SF</p>
+        </div>
+
+        <div class="player-card">
+        <h3>Draymond Green</h3>
+        <p>PF</p>
+        </div>
+
+    </div>
+
+    </section>
+
+    <!-- BULLS ROSTER -->
+
+    <section class="roster-section" id="bulls">
+
+    <button class="btn back-btn" onclick="hideRosters()">
+        Back To Teams
+    </button>
+
+    <h1 class="section-title">BULLS ROSTER</h1>
+
+    <div class="players">
+
+        <div class="player-card">
+        <h3>Coby White</h3>
+        <p>PG</p>
+        </div>
+
+        <div class="player-card">
+        <h3>Nikola Vucevic</h3>
+        <p>C</p>
+        </div>
+
+        <div class="player-card">
+        <h3>Josh Giddey</h3>
+        <p>SG</p>
+        </div>
+
+    </div>
+
+    </section>
+
+    <!-- CELTICS ROSTER -->
+
+    <section class="roster-section" id="celtics">
+
+    <button class="btn back-btn" onclick="hideRosters()">
+        Back To Teams
+    </button>
+
+    <h1 class="section-title">CELTICS ROSTER</h1>
+
+    <div class="players">
+
+        <div class="player-card">
+        <h3>Jayson Tatum</h3>
+        <p>SF</p>
+        </div>
+
+        <div class="player-card">
+        <h3>Jaylen Brown</h3>
+        <p>SG</p>
+        </div>
+
+        <div class="player-card">
+        <h3>Derrick White</h3>
+        <p>PG</p>
+        </div>
+
+    </div>
+
+    </section>
+
+    <!-- HEAT ROSTER -->
+
+    <section class="roster-section" id="heat">
+
+    <button class="btn back-btn" onclick="hideRosters()">
+        Back To Teams
+    </button>
+
+    <h1 class="section-title">HEAT ROSTER</h1>
+
+    <div class="players">
+
+        <div class="player-card">
+        <h3>Bam Adebayo</h3>
+        <p>C</p>
+        </div>
+
+        <div class="player-card">
+        <h3>Tyler Herro</h3>
+        <p>SG</p>
+        </div>
+
+        <div class="player-card">
+        <h3>Terry Rozier</h3>
+        <p>PG</p>
+        </div>
+
+    </div>
+
+    </section>
+
+    <!-- BUCKS ROSTER -->
+
+    <section class="roster-section" id="bucks">
+
+    <button class="btn back-btn" onclick="hideRosters()">
+        Back To Teams
+    </button>
+
+    <h1 class="section-title">BUCKS ROSTER</h1>
+
+    <div class="players">
+
+        <div class="player-card">
+        <h3>Giannis Antetokounmpo</h3>
+        <p>PF</p>
+        </div>
+
+        <div class="player-card">
+        <h3>Damian Lillard</h3>
+        <p>PG</p>
+        </div>
+
+        <div class="player-card">
+        <h3>Khris Middleton</h3>
+        <p>SF</p>
+        </div>
+
+    </div>
+
+    </section>
+
+    <!-- KNICKS ROSTER -->
+
+    <section class="roster-section" id="knicks">
+
+    <button class="btn back-btn" onclick="hideRosters()">
+        Back To Teams
+    </button>
+
+    <h1 class="section-title">KNICKS ROSTER</h1>
+
+    <div class="players">
+
+        <div class="player-card">
+        <h3>Jalen Brunson</h3>
+        <p>PG</p>
+        </div>
+
+        <div class="player-card">
+        <h3>Karl-Anthony Towns</h3>
+        <p>C</p>
+        </div>
+
+        <div class="player-card">
+        <h3>Mikal Bridges</h3>
+        <p>SF</p>
+        </div>
+
+    </div>
+
+    </section>
+
+    <!-- NUGGETS ROSTER -->
+
+    <section class="roster-section" id="nuggets">
+
+    <button class="btn back-btn" onclick="hideRosters()">
+        Back To Teams
+    </button>
+
+    <h1 class="section-title">NUGGETS ROSTER</h1>
+
+    <div class="players">
+
+        <div class="player-card">
+        <h3>Nikola Jokic</h3>
+        <p>C</p>
+        </div>
+
+        <div class="player-card">
+        <h3>Jamal Murray</h3>
+        <p>PG</p>
+        </div>
+
+        <div class="player-card">
+        <h3>Michael Porter Jr.</h3>
+        <p>SF</p>
+        </div>
+
+    </div>
+
+    </section>
+
+    <!-- SUNS ROSTER -->
+
+    <section class="roster-section" id="suns">
+
+    <button class="btn back-btn" onclick="hideRosters()">
+        Back To Teams
+    </button>
+
+    <h1 class="section-title">SUNS ROSTER</h1>
+
+    <div class="players">
+
+        <div class="player-card">
+        <h3>Devin Booker</h3>
+        <p>SG</p>
+        </div>
+
+        <div class="player-card">
+        <h3>Kevin Durant</h3>
+        <p>SF / PF</p>
+        </div>
+
+        <div class="player-card">
+        <h3>Bradley Beal</h3>
+        <p>SG</p>
+        </div>
+
+    </div>
+
+    </section>
+
+    <!-- MAVERICKS ROSTER -->
+
+    <section class="roster-section" id="mavericks">
+
+    <button class="btn back-btn" onclick="hideRosters()">
+        Back To Teams
+    </button>
+
+    <h1 class="section-title">MAVERICKS ROSTER</h1>
+
+    <div class="players">
+
+        <div class="player-card">
+        <h3>Anthony Davis</h3>
+        <p>PF / C</p>
+        </div>
+
+        <div class="player-card">
+        <h3>Kyrie Irving</h3>
+        <p>PG</p>
+        </div>
+
+        <div class="player-card">
+        <h3>Klay Thompson</h3>
+        <p>SG</p>
+        </div>
+
+    </div>
+
+    </section>
+
+    <!-- SPURS ROSTER -->
+
+    <section class="roster-section" id="spurs">
+
+    <button class="btn back-btn" onclick="hideRosters()">
+        Back To Teams
+    </button>
+
+    <h1 class="section-title">SPURS ROSTER</h1>
+
+    <div class="players">
+
+        <div class="player-card">
+        <h3>Victor Wembanyama</h3>
+        <p>C</p>
+        </div>
+
+        <div class="player-card">
+        <h3>De'Aaron Fox</h3>
+        <p>PG</p>
+        </div>
+
+        <div class="player-card">
+        <h3>Stephon Castle</h3>
+        <p>SG</p>
+        </div>
+
+    </div>
+
+    </section>
+
+    <!-- THUNDER ROSTER -->
+
+    <section class="roster-section" id="thunder">
+
+    <button class="btn back-btn" onclick="hideRosters()">
+        Back To Teams
+    </button>
+
+    <h1 class="section-title">THUNDER ROSTER</h1>
+
+    <div class="players">
+
+        <div class="player-card">
+        <h3>Shai Gilgeous-Alexander</h3>
+        <p>PG</p>
+        </div>
+
+        <div class="player-card">
+        <h3>Chet Holmgren</h3>
+        <p>C</p>
+        </div>
+
+        <div class="player-card">
+        <h3>Jalen Williams</h3>
+        <p>SF</p>
+        </div>
+
+    </div>
+
+    </section>
+
+    <!-- ABOUT -->
+
+    <section id="about">
+
+    <h1 class="section-title">ABOUT NBA UNIVERSE</h1>
+
+    <p style="
+        text-align:center;
+        max-width:1000px;
+        margin:auto;
+        font-size:20px;
+        line-height:1.9;
+        color:#ccc;
+    ">
+
+        NBA Universe is a basketball themed website created using
+        HTML, CSS and JavaScript. The goal of the website is to give
+        basketball fans a place where they can explore NBA teams,
+        players, and team rosters in a modern and interactive way.
+
+        <br><br>
+
+        This project includes animated team cards, responsive layouts,
+        player roster sections, smooth scrolling navigation and a
+        professional sports design inspired by official NBA websites.
+
+        <br><br>
+
+        Users can browse different NBA franchises such as the Lakers,
+        Warriors, Bulls, Celtics, Heat and Bucks while viewing some of
+        their most important players and positions.
+
+        <br><br>
+
+        The website was designed to work on both desktop and mobile
+        devices, making it easy to navigate from anywhere. More
+        features can later be added including live NBA scores,
+        standings, statistics, dark mode, player search systems,
+        highlight videos and advanced animations.
+
+        <br><br>
+
+        NBA Universe is perfect as a beginner or intermediate web
+        development project because it combines design, layout,
+        navigation and JavaScript interactions into one complete
+        basketball website experience.
+
+    </p>
+
+    </section>
+
+  <footer>
+    NBA Universe © 2026
+  </footer>
+
+  <script>
+
+    function showRoster(teamId){
+
+      const rosters = document.querySelectorAll(".roster-section");
+
+      rosters.forEach(roster => {
+        roster.style.display = "none";
+      });
+
+      document.getElementById(teamId).style.display = "block";
+
+      window.scrollTo({
+        top: document.getElementById(teamId).offsetTop - 70,
+        behavior: "smooth"
+      });
+
+    }
+
+    function hideRosters(){
+
+      const rosters = document.querySelectorAll(".roster-section");
+
+      rosters.forEach(roster => {
+        roster.style.display = "none";
+      });
+
+      window.scrollTo({
+        top: document.getElementById("teams").offsetTop - 70,
+        behavior: "smooth"
+      });
+
+    }
+
+    console.log("NBA Universe Loaded");
+
+  </script>
+
+</body>
+</html>
